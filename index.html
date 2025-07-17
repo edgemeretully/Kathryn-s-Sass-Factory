@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kathryn's Sass Factory</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ffa500);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            padding: 30px;
+        }
+        
+        .api-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 5px solid #ff6b6b;
+        }
+        
+        .api-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .api-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .api-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .api-input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+        
+        .save-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .save-btn:hover {
+            background: #218838;
+        }
+        
+        .api-status {
+            font-size: 14px;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+        
+        .status-saved {
+            color: #28a745;
+        }
+        
+        .status-not-saved {
+            color: #dc3545;
+        }
+        
+        .input-section {
+            margin-bottom: 30px;
+        }
+        
+        .input-section label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .input-text {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 15px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+        
+        .input-text:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+        
+        .sassify-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ffa500);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: block;
+            margin: 20px auto;
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+        
+        .sassify-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
+        }
+        
+        .sassify-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .output-section {
+            margin-top: 30px;
+        }
+        
+        .output-box {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 15px;
+            padding: 20px;
+            min-height: 120px;
+            font-size: 16px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+        
+        .output-box.has-content {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            border-color: #ff6b6b;
+        }
+        
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .error {
+            color: #dc3545;
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+        
+        .fire-emoji {
+            font-size: 1.5em;
+            margin: 0 5px;
+        }
+        
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .api-input-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><span class="fire-emoji">🔥</span>Kathryn's Sass Factory<span class="fire-emoji">🔥</span></h1>
+            <p>Producing heat that keeps other disciplines in check</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="api-section">
+                <h3>🔑 API Key Setup</h3>
+                <div class="api-input-group">
+                    <input type="password" class="api-input" id="apiKey" placeholder="Enter your OpenAI API key">
+                    <button class="save-btn" onclick="saveApiKey()">Save Key</button>
+                </div>
+                <div class="api-status" id="apiStatus">
+                    <span class="status-not-saved">⚠️ No API key saved</span>
+                </div>
+            </div>
+            
+            <div class="input-section">
+                <label for="inputText">Drop your boring statement here:</label>
+                <textarea 
+                    class="input-text" 
+                    id="inputText" 
+                    placeholder="Example: 'Please remember to submit your reports by Friday.'"></textarea>
+            </div>
+            
+            <button class="sassify-btn" onclick="sassifyText()" id="sassifyBtn">
+                ✨ SASSIFY IT! ✨
+            </button>
+            
+            <div class="output-section">
+                <label>Your freshly sassified statement:</label>
+                <div class="output-box" id="outputBox">
+                    Your sassy transformation will appear here... 🔥
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check for saved API key on page load
+        window.onload = function() {
+            const savedKey = localStorage.getItem('openai_api_key');
+            if (savedKey) {
+                document.getElementById('apiKey').value = savedKey;
+                updateApiStatus(true);
+            }
+        };
+
+        function saveApiKey() {
+            const apiKey = document.getElementById('apiKey').value.trim();
+            if (apiKey) {
+                localStorage.setItem('openai_api_key', apiKey);
+                updateApiStatus(true);
+            } else {
+                localStorage.removeItem('openai_api_key');
+                updateApiStatus(false);
+            }
+        }
+
+        function updateApiStatus(hasSavedKey) {
+            const statusElement = document.getElementById('apiStatus');
+            if (hasSavedKey) {
+                statusElement.innerHTML = '<span class="status-saved">✅ API key saved and ready!</span>';
+            } else {
+                statusElement.innerHTML = '<span class="status-not-saved">⚠️ No API key saved</span>';
+            }
+        }
+
+        async function sassifyText() {
+            const inputText = document.getElementById('inputText').value.trim();
+            const apiKey = localStorage.getItem('openai_api_key') || document.getElementById('apiKey').value.trim();
+            const outputBox = document.getElementById('outputBox');
+            const sassifyBtn = document.getElementById('sassifyBtn');
+
+            if (!inputText) {
+                outputBox.className = 'output-box error';
+                outputBox.textContent = '🚫 Please enter some text to sassify!';
+                return;
+            }
+
+            if (!apiKey) {
+                outputBox.className = 'output-box error';
+                outputBox.textContent = '🚫 Please enter your API key first!';
+                return;
+            }
+
+            // Show loading state
+            sassifyBtn.disabled = true;
+            sassifyBtn.textContent = '🔄 SASSIFYING...';
+            outputBox.className = 'output-box loading';
+            outputBox.textContent = 'Brewing some sass... ☕✨';
+
+            try {
+                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-4',
+                        messages: [{
+                            role: 'system',
+                            content: 'You are a sassy, witty assistant that transforms boring corporate or everyday statements into spicy, attitude-filled versions. Make them bold, confident, and humorous while keeping the core message. Use bold formatting for emphasis and add some sass and personality. Give 2-3 different sassy versions.'
+                        }, {
+                            role: 'user',
+                            content: `Transform this boring statement into something spicy and sassy: "${inputText}"`
+                        }],
+                        max_tokens: 300,
+                        temperature: 0.9
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const sassyText = data.choices[0].message.content;
+
+                outputBox.className = 'output-box has-content';
+                outputBox.innerHTML = sassyText;
+                
+            } catch (error) {
+                outputBox.className = 'output-box error';
+                outputBox.textContent = `🚫 Oops! Something went wrong: ${error.message}`;
+            } finally {
+                // Reset button
+                sassifyBtn.disabled = false;
+                sassifyBtn.textContent = '✨ SASSIFY IT! ✨';
+            }
+        }
+
+        // Allow Enter key to trigger sassify (but not in textarea)
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && event.target.id !== 'inputText') {
+                if (event.target.id === 'apiKey') {
+                    saveApiKey();
+                } else {
+                    sassifyText();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
